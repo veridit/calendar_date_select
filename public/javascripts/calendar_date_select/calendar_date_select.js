@@ -27,15 +27,13 @@ Date.first_day_of_week = 0;
 Date.months = $w("January February March April May June July August September October November December" );
 Date.padded2 = function(hour) { var padded2 = parseInt(hour, 10); if (hour < 10) padded2 = "0" + padded2; return padded2; }
 Date.prototype.getPaddedMinutes = function() { return Date.padded2(this.getMinutes()); }
-Date.prototype.getAMPMHour = function() { var hour = this.getHours(); return (hour == 0) ? 12 : (hour > 12 ? hour - 12 : hour ) }
-Date.prototype.getAMPM = function() { return (this.getHours() < 12) ? "AM" : "PM"; }
 Date.prototype.stripTime = function() { return new Date(this.getFullYear(), this.getMonth(), this.getDate());};
 Date.prototype.daysDistance = function(compare_date) { return Math.round((compare_date - this) / Date.one_day); };
 Date.prototype.toFormattedString = function(include_time){
   var hour, str;
   str = Date.months[this.getMonth()] + " " + this.getDate() + ", " + this.getFullYear();
   
-  if (include_time) { hour = this.getHours(); str += " " + this.getAMPMHour() + ":" + this.getPaddedMinutes() + " " + this.getAMPM() }
+  if (include_time) { str += " " + this.getHours() + ":" + this.getPaddedMinutes() }
   return str;
 }
 Date.parseFormattedString = function(string) { return new Date(string);}
@@ -196,7 +194,7 @@ CalendarDateSelect.prototype = {
       
       var t = new Date();
       this.hour_select = new SelectBox(buttons_div,
-        blank_time.concat($R(0,23).map(function(x) {t.setHours(x); return $A([t.getAMPMHour()+ " " + t.getAMPM(),x])} )),
+        blank_time.concat($R(0,23).map(function(x) {t.setHours(x); return $A([t.getHours(),x])} )),
         { 
           calendar_date_select: this, 
           onchange: function() { this.calendar_date_select.updateSelectedDate( { hour: this.value });},

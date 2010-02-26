@@ -77,7 +77,7 @@ module CalendarDateSelect
   #   puts CalendarDateSelect.format[:date]
   #     => "%d/%m/%Y"
   def self.format
-    @calendar_date_select_format ||= FORMATS[:natural]
+    @calendar_date_select_format ||= FORMATS[:iso_date]
   end
 
   # Set the format.  To see a list of available formats, CalendarDateSelect::FORMATS.keys, or open lib/calendar_date_select/calendar_date_select.rb
